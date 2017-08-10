@@ -1,0 +1,41 @@
+---
+# Ansible Playbook for DDB Corp Web Tier
+
+- name: Install Web Services for DDBCorp
+  hosts: localhost
+  tasks:
+  - name: Make sure latest Apache is installed
+    package:
+      name: httpd
+      state: latest
+  - name: Make sure latest PHP is installed
+    package:
+      name: php
+      state: latest
+  - name: Install MySQLi Driver
+    package:
+      name: php-mysqli
+      state: latest
+  - name: Get CodeIgniter
+    unarchive:
+      src: http://github.com/bcit-ci/CodeIgniter/archive/3.1.5.tar.gz
+      dest: /tmp
+      remote_src: yes
+  - name: Create codeigniter directory under /var/www
+    file: path=/var/www/codeigniter state=directory
+  - name: Copy contents of CodeIgniter software package to dest
+    shell: cp -p -r * /var/www/codeigniter
+    args:
+      chdir: /tmp/CodeIgniter-3.1.5/
+      creates: /var/www/codeigniter/index.php
+  - name: Change the DocumentRoot in /etc/httpd/conf/httpd.conf
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^DocumentRoot\s+.+$'
+      replace: 'DocumentRoot "/var/www/codeigniter"'
+  - name: Enable HTTPD as service
+    service:
+      name: httpd
+      enabled: true
+      state: started
+...
