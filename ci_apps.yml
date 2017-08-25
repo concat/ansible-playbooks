@@ -7,7 +7,7 @@
   - name: Install XYZ Application
     git:
       repo: https://github.com/concat/xyz.git
-      dest: /var/www
+      dest: /var/www/xyz
       clone: yes
       update: yes
 ...
