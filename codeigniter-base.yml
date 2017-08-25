@@ -25,7 +25,12 @@
     shell: cp -p -r system /var/www/ci_system315
     args:
       chdir: /tmp/CodeIgniter-3.1.5/
-      creates: /var/www/ci_system315/core
+      creates: /var/www/codeigniter/index.php
+  - name: Change the DocumentRoot in /etc/httpd/conf/httpd.conf
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^DocumentRoot\s+.+$'
+      replace: 'DocumentRoot "/var/www"'
   - name: Enable HTTPD as service
     service:
       name: httpd
