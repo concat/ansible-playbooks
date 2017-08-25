@@ -1,0 +1,13 @@
+---
+# Ansible Playbook to Install Current Applications
+
+- name: Install All Applications
+  hosts: localhost
+  tasks:
+  - name: Install XYZ Application
+    git:
+      repo: https://github.com/concat/xyz.git
+      dest: /var/www
+      clone: yes
+      update: yes
+...
