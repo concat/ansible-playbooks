@@ -10,4 +10,10 @@
       dest: /var/www/xyz
       clone: yes
       update: yes
+  - name: Install UVW Application
+    git:
+      repo: https://github.com/concat/uvw.git
+      dest: /var/www/uvw
+      clone: yes
+      update: yes
 ...
