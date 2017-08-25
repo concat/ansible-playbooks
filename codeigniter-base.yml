@@ -22,17 +22,12 @@
       dest: /tmp
       remote_src: yes
   - name: Create codeigniter directory under /var/www
-    file: path=/var/www/codeigniter state=directory
+    file: path=/var/www/ci_system315 state=directory
   - name: Copy contents of CodeIgniter software package to dest
-    shell: cp -p -r * /var/www/codeigniter
+    shell: cp -p -r system /var/www/ci_system315
     args:
       chdir: /tmp/CodeIgniter-3.1.5/
-      creates: /var/www/codeigniter/index.php
-  - name: Change the DocumentRoot in /etc/httpd/conf/httpd.conf
-    replace:
-      path: /etc/httpd/conf/httpd.conf
-      regexp: '^DocumentRoot\s+.+$'
-      replace: 'DocumentRoot "/var/www/codeigniter"'
+      creates: /var/www/ci_system315/core
   - name: Enable HTTPD as service
     service:
       name: httpd
