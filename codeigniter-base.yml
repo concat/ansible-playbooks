@@ -1,7 +1,7 @@
 ---
 # Ansible Playbook for DDB Corp Web Tier
 
-- name: Install Web Services for DDBCorp
+- name: Install Web Services
   hosts: localhost
   tasks:
   - name: Make sure latest Apache is installed
@@ -21,8 +21,6 @@
       src: http://github.com/bcit-ci/CodeIgniter/archive/3.1.5.tar.gz
       dest: /tmp
       remote_src: yes
-  - name: Create codeigniter directory under /var/www
-    file: path=/var/www/ci_system315 state=directory
   - name: Copy contents of CodeIgniter software package to dest
     shell: cp -p -r system /var/www/ci_system315
     args:
