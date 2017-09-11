@@ -13,6 +13,7 @@
       dest: /var/www/xyz
       clone: yes
       update: yes
+      version: prod
   - name: Insert Production Database password
     replace:
       path: /var/www/xyz/config/database.php
@@ -24,6 +25,7 @@
       dest: /var/www/uvw
       clone: yes
       update: yes
+      version: prod
   - name: Insert Production Database password
     replace:
       path: /var/www/uvw/config/database.php
