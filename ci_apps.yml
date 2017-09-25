@@ -12,6 +12,7 @@
       repo: https://github.com/concat/xyz.git
       dest: /var/www/xyz
       clone: yes
+      force: yes
       update: yes
       version: prod
   - name: Insert Production Database password
@@ -24,6 +25,7 @@
       repo: https://github.com/concat/uvw.git
       dest: /var/www/uvw
       clone: yes
+      force: yes
       update: yes
       version: prod
   - name: Insert Production Database password
