@@ -1,0 +1,25 @@
+---
+# Ansible Playbook to Install Current Applications
+
+- name: Install All Applications
+  hosts: localhost
+  become: yes
+
+  tasks:
+  - name: Get the DB Password
+    shell: aws --region us-east-1 --output json ssm get-parameters --names /DDBCorp/CI_Apps/Prod/RDSPassword --with-decryption | jq '.Parameters | from_entries | ."/DDBCorp/CI_Apps/Prod/RDSPassword"' | sed 's/"//g'
+    register: rdsdbpassword
+  - name: Install XYZ Application
+    git:
+      repo: https://github.com/concat/xyz.git
+      dest: /var/www/xyz
+      clone: yes
+      force: yes
+      update: yes
+      version: prod
+  - name: Insert Production Database password
+    replace:
+      path: /var/www/xyz/config/database.php
+      regexp: 'MYPRODDBPASSWORDHERE'
+      replace: '{{ rdsdbpassword.stdout }}'
+...
